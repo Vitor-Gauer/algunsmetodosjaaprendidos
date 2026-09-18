@@ -1,0 +1,46 @@
+package com.example.algunsmetodosjaaprendidos
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
+@Composable
+fun ExemploNavegacao() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "home") {
+        composable("home") {
+            TelaHome(onNavegar = { navController.navigate("detalhes") })
+        }
+        composable("detalhes") {
+            TelaDetalhes(onVoltar = { navController.popBackStack() })
+        }
+    }
+}
+
+@Composable
+fun TelaHome(onNavegar: () -> Unit) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Tela Inicial")
+        Button(onClick = onNavegar) {
+            Text("Ir para Detalhes")
+        }
+    }
+}
+
+@Composable
+fun TelaDetalhes(onVoltar: () -> Unit) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Tela de Detalhes")
+        Button(onClick = onVoltar) {
+            Text("Voltar")
+        }
+    }
+}
